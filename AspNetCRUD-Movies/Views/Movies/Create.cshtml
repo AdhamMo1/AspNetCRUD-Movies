@@ -1,0 +1,58 @@
+﻿@model AspNetCRUD_Movies.ViewModels.FormCreateMovieViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>New movie</h2>
+
+<hr />
+<form asp-action="Create" method="post" enctype="multipart/form-data">
+  <div class="row">
+        <div class="col-md-4">
+       
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group w-50">
+                <label asp-for="Rate" class="control-label"></label>
+                <input asp-for="Rate" type="number" class="form-control" />
+                <span asp-validation-for="Rate" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="CategoryId" class="text-muted">Category</label>
+                <select class="form-control" asp-for="CategoryId" asp-items="@(new SelectList(Model.Categories,"Id","Name"))">
+                    <option value="">--select category--</option>
+                </select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StoryLine" class="control-label">Story Line</label>
+                <textarea asp-for="StoryLine" class="form-control" maxlength="2500"  rows="4" style="resize:none"></textarea>
+                <span asp-validation-for="StoryLine" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary"><i class="bi bi-check2-all"></i> Create</button>
+                <a asp-action="Index" class="btn btn-outline-secondary"><i class="bi bi-file-excel-fill"></i> Back to List</a>
+
+            </div>
+        </div>
+        <div class="col-md-6">
+
+            <img class="m-3" id="poster" src="~/empty.jpg" style="height:295px;width:295px;object-fit:cover"/>
+            <div class="custom-file">
+                    <input asp-for="Poster" class="custom-file-input" type="file" onchange="document.getElementById('poster').src=window.URL.createObjectURL(this.files[0])" accept="image/*" />
+                    <label asp-for="Poster" class="custom-file-label input-group-append">--> choose poster image</label>
+                    <span asp-validation-for="Poster" class="text-danger"></span>
+            </div>
+        </div>
+   
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
