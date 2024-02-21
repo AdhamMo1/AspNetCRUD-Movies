@@ -8,7 +8,7 @@
 
 <hr />
 <form asp-action="Create" method="post" enctype="multipart/form-data">
-  <div class="row">
+  <div class="row justify-content-between">
         <div class="col-md-4">
        
             <div class="form-group">
@@ -21,7 +21,11 @@
                 <input asp-for="Rate" type="number" class="form-control" />
                 <span asp-validation-for="Rate" class="text-danger"></span>
             </div>
-            
+            <div class="form-group w-50">
+                <label asp-for="Year" class="control-label"></label>
+                <input asp-for="Year" type="number" class="form-control" />
+                <span asp-validation-for="Year" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="CategoryId" class="text-muted">Category</label>
                 <select class="form-control" asp-for="CategoryId" asp-items="@(new SelectList(Model.Categories,"Id","Name"))">
@@ -42,10 +46,10 @@
         </div>
         <div class="col-md-6">
 
-            <img class="m-3" id="poster" src="~/empty.jpg" style="height:295px;width:295px;object-fit:cover"/>
+            <img class="m-3 ml-5 img-thumbnail" id="poster" src="~/empty.jpg" style="height:300px;width:300px;object-fit:cover"/>
             <div class="custom-file">
                     <input asp-for="Poster" class="custom-file-input" type="file" onchange="document.getElementById('poster').src=window.URL.createObjectURL(this.files[0])" accept="image/*" />
-                    <label asp-for="Poster" class="custom-file-label input-group-append">--> choose poster image</label>
+                    <label asp-for="Poster" class="custom-file-label input-group-append label">Choose Poster...</label>
                     <span asp-validation-for="Poster" class="text-danger"></span>
             </div>
         </div>
@@ -53,6 +57,25 @@
     </div>
 </form>
 
+
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function () {
+            $('#Poster').on('change', function () {
+                var fileName = $(this).val().split('\\').pop();
+                $(this).siblings('label').text(fileName);
+            })
+
+            $('#Year').datepicker({
+                format: 'yyyy',
+                viewMode: 'years',
+                minViewMode: 'years',
+                startDate: new Date('1955-01-01'),
+                endDate: new Date(),
+                autoclose: true
+
+            });
+        } )
+    </script>
 }

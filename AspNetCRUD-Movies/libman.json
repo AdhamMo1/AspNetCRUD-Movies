@@ -10,6 +10,14 @@
         "font/fonts/bootstrap-icons.woff2",
         "font/bootstrap-icons.min.css"
       ]
+    },
+    {
+      "library": "bootstrap-datepicker@1.10.0",
+      "destination": "wwwroot/bootstrap-datepicker/",
+      "files": [
+        "js/bootstrap-datepicker.min.js",
+        "css/bootstrap-datepicker.min.css"
+      ]
     }
   ]
 }

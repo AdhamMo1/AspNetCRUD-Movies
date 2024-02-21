@@ -13,6 +13,8 @@ namespace AspNetCRUD_Movies.Models
         public string StoryLine { get; set; }
         [Required]
         public byte[] Poster { get; set; }
+        [Required]
+        public int Year { get; set; }
         public byte CategoryId { get; set; }
         public Category Category { get; set; }
     }

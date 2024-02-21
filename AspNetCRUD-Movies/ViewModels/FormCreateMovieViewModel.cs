@@ -15,6 +15,8 @@ namespace AspNetCRUD_Movies.ViewModels
         public string StoryLine { get; set; }
         public byte[] Poster { get; set; }
         public byte CategoryId { get; set; }
+        [Required]
+        public int Year { get; set; }
         public IEnumerable<Category> Categories {  get; set; }
     }
 }
