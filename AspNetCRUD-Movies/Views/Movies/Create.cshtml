@@ -46,7 +46,7 @@
         </div>
         <div class="col-md-6">
 
-            <img class="m-3 ml-5 img-thumbnail" id="poster" src="~/empty.jpg" style="height:300px;width:300px;object-fit:cover"/>
+            <img class="m-3 ml-5 img-thumbnail" id="poster" src="~/empty.jpg" style="height:300px;width:300px;object-fit:contain"/>
             <div class="custom-file">
                     <input asp-for="Poster" class="custom-file-input" type="file" onchange="document.getElementById('poster').src=window.URL.createObjectURL(this.files[0])" accept="image/*" />
                     <label asp-for="Poster" class="custom-file-label input-group-append label">Choose Poster...</label>

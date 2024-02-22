@@ -3,15 +3,48 @@
 <h2><i class="bi bi-film"></i> Movies</h2>
 <hr />
 <a asp-action="Create" class="btn btn-primary"><i class="bi bi-file-plus"></i> New movie</a>
-<div class="mt-4">
-    <div class="@(Model.Any()?" ":"d-none") ">
-        <ul>
-            @foreach(var movie in Model)
+   <div class="@(Model.Any()?" ":"d-none") ">
+        <div class="row mt-3">
+            @foreach (var movie in Model)
             {
-                <li>@movie.Title</li>
+                <div class="col-12">
+                    <div class="card mb-3">
+                        <div class="row no-gutters">
+                            <div class="col-md-2 poster" style="background-image: url(data:image\/*;base64,@(Convert.ToBase64String(movie.Poster))) ;object-fit:contain"></div>
+                            <div class="col-md-10">
+                                <div class="card-body d-flex flex-column justify-content-between h-100">
+                                    <div>
+                                        <h5 class="card-title">@movie.Title (@movie.Year)</h5>
+                                        <p class="card-text text-justify">@(movie.StoryLine.Length > 500 ? $"{movie.StoryLine.Substring(0, 500)}..." : movie.StoryLine)</p>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <p class="card-text mb-0 mt-2">
+                                            <i class="bi bi-star-fill text-warning"></i>
+                                            <small class="text-muted">@movie.Rate.ToString("0.0")</small>
+                                        </p>
+                                        <div>
+                                            <a asp-action="Details" asp-route-id="@movie.Id" class="btn btn-outline-secondary">
+                                                <i class="bi bi-camera-reels"></i>
+                                                Details
+                                            </a>
+                                            <a asp-action="Edit" asp-route-id="@movie.Id" class="btn btn-outline-primary">
+                                                <i class="bi bi-pencil"></i>
+                                                Edit
+                                            </a>
+                                            <a href="javascript:;" class="btn btn-danger js-delete" data-id="@movie.Id">
+                                                <i class="bi bi-trash"></i>
+                                                Delete
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             }
-        </ul>
-    </div>
+        </div>
+   </div>
     <div class="@(Model.Any()?"d-none":" ")">
         <div class="alert alert-warning text-center">
             <h6>
@@ -19,4 +52,3 @@
             </h6>
         </div>
     </div>
-</div>
