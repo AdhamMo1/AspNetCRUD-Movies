@@ -79,3 +79,13 @@ body {
     background-size:120%;
     transition:all 0.3s ease-in-out;
 }
+.imgDetails {
+    height: 350px;
+    background-position: center;
+    border-radius:30px;
+    transition: all 0.5s ease-in-out;
+}
+.imgDetails:hover{
+    background-size : 130%;
+    transition :all 0.5s ease-in-out;
+}

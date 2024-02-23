@@ -1,0 +1,17 @@
+﻿@model Movie
+
+<div class="card mb-3">
+    <div style="background-image:url(data:image/*;Base64,@Convert.ToBase64String(Model.Poster))"  class="card-img-top imgDetails" alt="..."></div>
+    <div class="card-body">
+        <h5 class="card-title">@Model.Title ( @Model.Year )</h5>
+        <p class="card-text">@Model.StoryLine</p>
+        <div class="d-flex justify-content-between text-muted">
+            <p class="card-text"><i class="bi bi-film"></i> @Model.Category.Name</p>
+            <p class="card-text"><i class="bi bi-calendar2-date"></i> @Model.Year</p>
+            <p class="card-text"><small class="text-muted"><i class="bi bi-star-fill text-warning"></i> @Model.Rate</small></p>
+        </div>
+        
+    </div>
+
+    <a asp-action="Index" asp-controller="Movies" class="btn btn-outline-secondary"><i class="bi bi-arrow-bar-left"></i> Back</a>
+</div>

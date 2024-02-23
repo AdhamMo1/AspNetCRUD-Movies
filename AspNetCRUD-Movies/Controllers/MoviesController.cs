@@ -21,7 +21,7 @@ namespace AspNetCRUD_Movies.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var movies = await _context.Movies.ToListAsync();
+            var movies = await _context.Movies.OrderByDescending(x=>x.Rate).ToListAsync();
             return View(movies);
         }
         public IActionResult Create()
@@ -153,6 +153,38 @@ namespace AspNetCRUD_Movies.Controllers
             await _context.SaveChangesAsync();
 
             _toastNotification.AddSuccessToastMessage("Movie updated successfully!");
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public IActionResult Details(int? id)
+        {
+            if(id == null)
+            {
+                return BadRequest();
+            }
+            var movie = _context.Movies.Include(x=>x.Category).SingleOrDefault(x=>x.Id==id);
+            if (movie == null)
+            {
+                return NotFound();
+            }
+            return View(movie);
+        }
+        [HttpDelete]
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return BadRequest();
+            }
+            var movie = await _context.Movies.FindAsync(id);
+            if (movie == null)
+            {
+                return NotFound();
+            }
+             _context.Movies.Remove(movie);
+            await _context.SaveChangesAsync();
+            _toastNotification.AddSuccessToastMessage("Movie deleted successfully!");
             return RedirectToAction(nameof(Index));
         }
     }
