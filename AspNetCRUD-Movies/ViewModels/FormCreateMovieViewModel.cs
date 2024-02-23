@@ -7,6 +7,7 @@ namespace AspNetCRUD_Movies.ViewModels
 {
     public class FormCreateMovieViewModel
     {
+        public int Id { get; set; }
         [Required, StringLength(250)]
         public string Title { get; set; }
         [Required,Range(1,10)]

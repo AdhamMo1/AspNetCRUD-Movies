@@ -1,0 +1,83 @@
+﻿@model FormCreateMovieViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit movie</h2>
+
+<hr />
+<form asp-action="Edit" asp-route-id ="@Model.Id" method="post" enctype="multipart/form-data">
+    <div class="row justify-content-between">
+        <div class="col-md-4">
+
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group w-50">
+                <label asp-for="Rate" class="control-label"></label>
+                <input asp-for="Rate" type="number" class="form-control" />
+                <span asp-validation-for="Rate" class="text-danger"></span>
+            </div>
+            <div class="form-group w-50">
+                <label asp-for="Year" class="control-label"></label>
+                <input asp-for="Year" type="number" class="form-control" />
+                <span asp-validation-for="Year" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CategoryId" class="text-muted">Category</label>
+                <select class="form-control" asp-for="CategoryId" asp-items="@(new SelectList(Model.Categories,"Id","Name"))">
+                    <option value="">--select category--</option>
+                </select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StoryLine" class="control-label">Story Line</label>
+                <textarea asp-for="StoryLine" class="form-control" maxlength="2500" rows="4" style="resize:none"></textarea>
+                <span asp-validation-for="StoryLine" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary"><i class="bi bi-check2-all"></i> Update</button>
+                <a asp-action="Index" class="btn btn-outline-secondary"><i class="bi bi-file-excel-fill"></i> Back to List</a>
+
+            </div>
+        </div>
+        <div class="col-md-6">
+            <img class="m-3 ml-5 img-thumbnail" id="poster" src="data:image/*;Base64,@Convert.ToBase64String(Model.Poster)" style="height:300px;width:300px;object-fit:contain" />
+            <div class="custom-file">
+                <input asp-for="Poster" class="custom-file-input" type="file" onchange="document.getElementById('poster').src=window.URL.createObjectURL(this.files[0])" accept="image/*" />
+                <label asp-for="Poster" class="custom-file-label input-group-append label">Choose Poster...</label>
+                <span asp-validation-for="Poster" class="text-danger"></span>
+            </div>
+        </div>
+
+    </div>
+</form>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        $(document).ready(function () {
+            $('#Poster').on('change', function () {
+                var fileName = $(this).val().split('\\').pop();
+                $(this).siblings('label').text(fileName);
+            })
+
+            $('#Year').datepicker({
+                format: 'yyyy',
+                viewMode: 'years',
+                minViewMode: 'years',
+                startDate: new Date('1955-01-01'),
+                endDate: new Date(),
+                autoclose: true
+
+            });
+        })
+    </script>
+}
+

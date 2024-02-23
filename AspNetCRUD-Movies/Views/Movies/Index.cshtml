@@ -52,3 +52,48 @@
             </h6>
         </div>
     </div>
+
+@section Scripts 
+{
+    <script>
+        $(document).ready(function () 
+        {
+            
+            
+            $('.js-delete').on('click', function () {
+                var btn = $(this);
+                bootbox.confirm({
+                    message: 'Are you sure that you need to delete this book?',
+                    buttons: {
+                        confirm: {
+                            label: 'Yes',
+                            className: 'btn-success'
+                        },
+                        cancel: {
+                            label: 'No',
+                            className: 'btn-danger'
+                        }
+                    },
+                    callback: function (result) {
+                        if (result) {
+                            $.ajax({
+                                url: '/Movies/delete/' + btn.data('id'),
+                                method: 'DELETE',
+                                success: function () {
+                                    btn.parents('tr').remove();
+                                    toastr.success('Movie Deleted..');
+                                },
+                                error: function () {
+                                    toastr.error('Somthing went wrong..');
+                                }
+
+                            });
+                        }
+                    }
+                });
+
+                
+            });
+        });
+    </script>
+}
