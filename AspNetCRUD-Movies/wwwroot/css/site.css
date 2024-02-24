@@ -89,3 +89,8 @@ body {
     background-size : 130%;
     transition :all 0.5s ease-in-out;
 }
+.bg-secondary{
+    margin-left: 15px;
+    margin-right: 15px;
+    border-radius: 0px 0px 44px 9px;
+}
