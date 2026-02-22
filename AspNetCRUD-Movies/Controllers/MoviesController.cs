@@ -8,6 +8,8 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
+
+
 namespace AspNetCRUD_Movies.Controllers
 {
     public class MoviesController : Controller
@@ -33,6 +35,7 @@ namespace AspNetCRUD_Movies.Controllers
             return View(viewModel);
 
         }
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(FormCreateMovieViewModel model)
